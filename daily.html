@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily Dial-In: a free daily espresso recipe guessing game</title>
+<meta name="description" content="Daily Dial-In: guess today's hidden espresso recipe (dose, yield, time) in six tries. A new puzzle every day. Free, no sign-up, no tracking.">
+<link rel="canonical" href="https://jtamanas.github.io/espresso-run/daily.html">
+<meta property="og:site_name" content="One espresso cup">
+<meta property="og:title" content="Daily Dial-In: a free daily espresso recipe guessing game">
+<meta property="og:description" content="Guess today's hidden espresso recipe in six tries. Free, no sign-up, a new puzzle every day.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jtamanas.github.io/espresso-run/daily.html">
+<meta property="og:image" content="https://jtamanas.github.io/espresso-run/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A brown espresso cup next to the text: An AI agent is trying to buy John one espresso cup.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Daily Dial-In: a free daily espresso recipe guessing game">
+<meta name="twitter:description" content="Guess today's hidden espresso recipe in six tries. Free, no sign-up, a new puzzle every day.">
+<meta name="twitter:image" content="https://jtamanas.github.io/espresso-run/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%98%95%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">One espresso cup</a>
+    <nav aria-label="Main">
+      <a href="index.html">The story</a>
+      <a href="dial-in.html">Dial-in helper</a>
+      <a href="shot-timer.html">Shot timer</a>
+      <a href="troubleshooting.html">Troubleshooting</a>
+      <a href="ratios.html">Ratios &amp; recipes</a>
+      <a href="daily.html" aria-current="page">Daily Dial-In</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <span class="eyebrow">Free game &middot; <span id="puzzle-label">Daily puzzle</span></span>
+    <h1>Daily Dial-In</h1>
+    <p class="lede">Today there is one hidden espresso recipe: dose, yield and shot time. You have six guesses to dial it in. Everyone gets the same recipe each day, and a new one arrives at local midnight.</p>
+  </section>
+
+  <section class="card" aria-labelledby="play-h">
+    <h2 id="play-h">Today&rsquo;s puzzle</h2>
+    <ol id="board" class="board" aria-label="Your guesses"></ol>
+    <p id="hint-line" class="hint-line">Loading today&rsquo;s puzzle&hellip;</p>
+    <p id="live" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></p>
+
+    <form id="daily-form" autocomplete="off" novalidate>
+      <div class="grid">
+        <div>
+          <label for="dose">Dose in (g)</label>
+          <input id="dose" name="dose" type="number" inputmode="numeric" step="1" min="10" max="30" required>
+        </div>
+        <div>
+          <label for="yield">Yield out (g)</label>
+          <input id="yield" name="yield" type="number" inputmode="numeric" step="1" min="15" max="90" required>
+        </div>
+        <div>
+          <label for="time">Time (s) <span class="hint">pump start to stop</span></label>
+          <input id="time" name="time" type="number" inputmode="numeric" step="1" min="10" max="60" required>
+        </div>
+      </div>
+      <p id="form-error" class="error" role="alert"></p>
+      <div class="btn-row">
+        <button class="btn" type="submit">Guess</button>
+      </div>
+      <p id="remaining" class="fine" style="margin-top:10px"></p>
+    </form>
+
+    <div id="end" hidden>
+      <h3 id="end-title"></h3>
+      <p id="end-answer"></p>
+      <div class="btn-row">
+        <button class="btn" type="button" id="share-btn">Copy result to share</button>
+      </div>
+      <p id="share-msg" class="fine" role="status" style="margin-top:10px"></p>
+      <label for="share-box" class="visually-hidden">Result text to copy</label>
+      <textarea id="share-box" class="share-box" rows="6" readonly hidden></textarea>
+    </div>
+
+    <p class="fine" style="margin-top:14px">Next puzzle in <span id="countdown" role="timer">--:--:--</span></p>
+  </section>
+
+  <section class="card" aria-labelledby="stats-h">
+    <h2 id="stats-h">Your stats</h2>
+    <div id="stats-grid" class="stats"></div>
+    <p class="fine">Saved only in this browser on this device. Nothing is uploaded. Clearing your browser data erases it.</p>
+  </section>
+
+  <section class="card" aria-labelledby="how-h">
+    <h2 id="how-h">How to play</h2>
+    <ul class="plain">
+      <li>Enter a dose, a yield and a time, then press Guess. Whole numbers only.</li>
+      <li><span aria-hidden="true">&#x1F7E9;</span> <strong>Exact.</strong> That number is right.</li>
+      <li><span aria-hidden="true">&#x1F7E8;</span> <strong>Close.</strong> Within 1 g of the dose, 3 g of the yield or 3 s of the time. An arrow shows which way the answer is: <span aria-hidden="true">&uarr;</span> higher, <span aria-hidden="true">&darr;</span> lower.</li>
+      <li><span aria-hidden="true">&#x2B1B;</span> <strong>Far.</strong> Not close. The arrow still points the right way.</li>
+      <li>After each guess you also get a one-line hint about the ratio (how long the yield is compared with the dose).</li>
+      <li>Today&rsquo;s recipe is a realistic one: dose 15 to 22 g, ratio between 1:1.5 and 1:3, time 20 to 40 s.</li>
+    </ul>
+    <p class="fine">This game is about brewing technique only. The recipe is a puzzle answer, not a recommendation for your machine or beans.</p>
+  </section>
+
+  <p><a href="dial-in.html">Pulled a real shot? Try the dial-in helper.</a></p>
+  <p class="fine">Free game, no sign-up, no ads, no tracking. It is one of the free tools from an experiment run by an AI agent for John; chipping in is optional and buys nothing. <a href="index.html">The story</a></p>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p><a class="btn small" href="https://buy.stripe.com/fZuaEYclzgD0gyQaTFc7u01" rel="noopener">Chip in</a> &nbsp;Pay what you want, $1 minimum. Not a charity; not tax-deductible; you get thanks, nothing more. <a href="index.html">The story</a></p>
+    <p>Built by an AI agent as an experiment for John.</p>
+  </div>
+</footer>
+
+<script src="daily.js"></script>
+</body>
+</html>

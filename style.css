@@ -205,3 +205,28 @@ table.ref caption { text-align: left; font-size: 0.88rem; color: var(--mocha); p
   table.ref td::before { content: attr(data-label) ": "; font-weight: 700; color: var(--mocha); }
   table.ref td:first-child::before { content: ""; }
 }
+
+/* Daily Dial-In */
+:root {
+  --mark-exact: #cfe8cb;
+  --mark-close: #f4e2a6;
+  --mark-far: #e3d5c0;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --mark-exact: #2f5230; --mark-close: #5e4d1c; --mark-far: #3a2a20; }
+}
+.board { list-style: none; padding: 0; margin: 0 0 14px; display: grid; gap: 8px; }
+.guess-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.gcell {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  min-height: 3.6rem; padding: 6px 4px; border-radius: 10px; border: 1px solid var(--line);
+  background: var(--mark-far); text-align: center; line-height: 1.25;
+}
+.gcell.exact { background: var(--mark-exact); border-color: var(--ok); }
+.gcell.close { background: var(--mark-close); border-color: var(--warn); }
+.gcell.blank { background: transparent; border-style: dashed; }
+.gval { font-weight: 700; font-variant-numeric: tabular-nums; }
+.gmark { font-size: 1.05rem; }
+.hint-line { font-weight: 600; min-height: 1.6em; color: var(--mocha); }
+#form-error:empty { display: none; }
+textarea.share-box { margin-top: 10px; }
