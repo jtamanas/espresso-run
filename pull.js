@@ -130,7 +130,7 @@
   }
 
   const FEEDBACK = {
-    'fast/under': 'Fast and short: under-extracted, likely sour and thin. A finer grind would slow the flow.',
+    'fast/under': 'You let go early: short on both time and weight, so the shot would be under-extracted, likely sour and thin. Keep holding until the scale nears the target.',
     'fast/ok': 'Right weight, but too quickly: likely sour-leaning. Try a finer grind and the same yield over a longer pull.',
     'fast/over': 'Fast and long: likely thin and watery. Grind finer, and stop closer to the target weight.',
     'ok/under': 'Good timing, but you stopped early: likely strong and a little sharp. Let it run to the target weight.',
@@ -138,7 +138,7 @@
     'ok/over': 'Good timing, but you ran long: likely diluted. Stop closer to the target weight.',
     'slow/under': 'Slow and short: over-extracted, likely bitter and harsh. A coarser grind would speed it up.',
     'slow/ok': 'Right weight, but slowly: likely bitter-leaning. Try a coarser grind and the same yield in less time.',
-    'slow/over': 'Slow and long: likely bitter and dull. Grind coarser, and stop earlier.'
+    'slow/over': 'You held on too long: past both the time window and the target weight, so the shot would be bitter and dull. Let go a little sooner.'
   };
 
   function feedbackFor(shot, target) {
