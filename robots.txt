@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jtamanas.github.io/espresso-run/sitemap.xml
+# All content is free to index.

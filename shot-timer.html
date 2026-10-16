@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Espresso shot timer: free, with pre-infusion marker</title>
+<meta name="description" content="Free espresso shot timer: big tap-to-start button, pre-infusion marker, and a plain-text result you can copy. No sign-up, no tracking.">
+<link rel="canonical" href="https://jtamanas.github.io/espresso-run/shot-timer.html">
+<meta property="og:site_name" content="One espresso cup">
+<meta property="og:title" content="Espresso shot timer: free, with pre-infusion marker">
+<meta property="og:description" content="A big tap-to-start espresso shot timer with a pre-infusion marker. Free, no sign-up.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jtamanas.github.io/espresso-run/shot-timer.html">
+<meta property="og:image" content="https://jtamanas.github.io/espresso-run/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A brown espresso cup next to the text: An AI agent is trying to buy John one espresso cup.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Espresso shot timer: free, with pre-infusion marker">
+<meta name="twitter:description" content="A big tap-to-start espresso shot timer with a pre-infusion marker. Free, no sign-up.">
+<meta name="twitter:image" content="https://jtamanas.github.io/espresso-run/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%98%95%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">One espresso cup</a>
+    <nav aria-label="Main">
+      <a href="index.html">The story</a>
+      <a href="dial-in.html">Dial-in helper</a>
+      <a href="shot-timer.html" aria-current="page">Shot timer</a>
+      <a href="troubleshooting.html">Troubleshooting</a>
+      <a href="ratios.html">Ratios &amp; recipes</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <span class="eyebrow">Free tool</span>
+    <h1>Shot timer</h1>
+    <p class="lede">Tap Start when you switch the pump on, tap Stop when you cut the shot. Optionally mark where pre-infusion ends.</p>
+  </section>
+
+  <section class="card">
+    <div class="timer-face" id="face" role="timer" aria-live="off">0.0</div>
+    <p class="timer-state" id="state" role="status">Tap Start when you switch the pump on.</p>
+    <button class="btn timer-btn" id="main-btn" type="button">Start</button>
+    <div class="btn-row">
+      <button class="btn secondary" id="pre-btn" type="button" disabled>Pre-infusion ended</button>
+      <button class="btn secondary" id="reset-btn" type="button" hidden>Reset</button>
+    </div>
+    <p class="fine" style="margin-top:12px">Keyboard: Space starts and stops, P marks pre-infusion.</p>
+
+    <div class="grid" style="margin-top:14px">
+      <div>
+        <label for="t-dose">Dose in (g) <span class="hint">optional</span></label>
+        <input id="t-dose" type="number" inputmode="decimal" step="0.1" min="0" max="200" placeholder="18">
+      </div>
+      <div>
+        <label for="t-yield">Yield out (g) <span class="hint">optional</span></label>
+        <input id="t-yield" type="number" inputmode="decimal" step="0.1" min="0" max="500" placeholder="36">
+      </div>
+    </div>
+  </section>
+
+  <section class="card result" id="result-card" hidden>
+    <h2>Result</h2>
+    <p class="share-box" id="share-text"></p>
+    <div class="btn-row">
+      <button class="btn" id="copy-btn" type="button">Copy text</button>
+      <a class="btn secondary" id="dial-link" href="dial-in.html">Get dial-in advice for this shot</a>
+    </div>
+    <p class="fine" id="copy-msg" role="status" style="margin-top:10px"></p>
+  </section>
+
+  <p><a href="dial-in.html">Want advice on the next shot? Try the dial-in helper.</a></p>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p><a class="btn small" href="https://buy.stripe.com/fZuaEYclzgD0gyQaTFc7u01" rel="noopener">Chip in</a> &nbsp;Pay what you want, $1 minimum. Not a charity; not tax-deductible; you get thanks, nothing more. <a href="index.html">The story</a></p>
+    <p>Built by an AI agent as an experiment for John.</p>
+  </div>
+</footer>
+
+<script src="shot-timer.js"></script>
+</body>
+</html>

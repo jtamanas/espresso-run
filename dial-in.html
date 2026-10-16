@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Espresso dial-in helper: free next-shot advice and shot log</title>
+<meta name="description" content="Free espresso dial-in helper: enter dose, yield, time and taste, get next-shot advice and keep a private shot log with CSV export. No sign-up.">
+<link rel="canonical" href="https://jtamanas.github.io/espresso-run/dial-in.html">
+<meta property="og:site_name" content="One espresso cup">
+<meta property="og:title" content="Espresso dial-in helper: free next-shot advice and shot log">
+<meta property="og:description" content="Enter dose, yield, time and taste and get concrete next-shot advice. Free, no sign-up, private shot log.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://jtamanas.github.io/espresso-run/dial-in.html">
+<meta property="og:image" content="https://jtamanas.github.io/espresso-run/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A brown espresso cup next to the text: An AI agent is trying to buy John one espresso cup.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Espresso dial-in helper: free next-shot advice and shot log">
+<meta name="twitter:description" content="Enter dose, yield, time and taste and get concrete next-shot advice. Free, no sign-up, private shot log.">
+<meta name="twitter:image" content="https://jtamanas.github.io/espresso-run/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%98%95%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">One espresso cup</a>
+    <nav aria-label="Main">
+      <a href="index.html">The story</a>
+      <a href="dial-in.html" aria-current="page">Dial-in helper</a>
+      <a href="shot-timer.html">Shot timer</a>
+      <a href="troubleshooting.html">Troubleshooting</a>
+      <a href="ratios.html">Ratios &amp; recipes</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <span class="eyebrow">Free tool</span>
+    <h1>Espresso dial-in helper</h1>
+    <p class="lede">Pulled a shot? Enter what you did and how it tasted, and get a concrete next-shot adjustment using standard home-barista rules of thumb. Free, no sign-up, no network needed after the page loads.</p>
+  </section>
+
+  <form id="dial-form" class="card" autocomplete="off" novalidate>
+    <h2>Your shot</h2>
+    <div class="grid">
+      <div>
+        <label for="dose">Dose in (g)</label>
+        <input id="dose" name="dose" type="number" inputmode="decimal" step="0.1" min="5" max="30" value="18" required>
+      </div>
+      <div>
+        <label for="yield">Yield out (g)</label>
+        <input id="yield" name="yield" type="number" inputmode="decimal" step="0.1" min="5" max="200" value="36" required>
+      </div>
+      <div>
+        <label for="time">Time (s) <span class="hint">pump start to stop</span></label>
+        <input id="time" name="time" type="number" inputmode="decimal" step="0.1" min="1" max="120" value="28" required>
+      </div>
+    </div>
+
+    <fieldset>
+      <legend>How did it taste?</legend>
+      <div class="choices">
+        <label><input type="radio" name="taste" value="sour"> Sour</label>
+        <label><input type="radio" name="taste" value="balanced" checked> Balanced</label>
+        <label><input type="radio" name="taste" value="bitter"> Bitter</label>
+        <label><input type="radio" name="taste" value="weak"> Weak / thin</label>
+        <label><input type="radio" name="taste" value="harsh"> Harsh / astringent</label>
+      </div>
+    </fieldset>
+
+    <details style="margin-top:16px">
+      <summary>Optional details for the log</summary>
+      <div class="grid" style="margin-top:12px">
+        <div>
+          <label for="coffee">Coffee</label>
+          <input id="coffee" name="coffee" type="text" maxlength="80" placeholder="e.g. Ethiopia, light roast">
+        </div>
+        <div>
+          <label for="grinder">Grinder setting</label>
+          <input id="grinder" name="grinder" type="text" maxlength="40" placeholder="e.g. 14 or 2.3">
+        </div>
+      </div>
+      <div style="margin-top:14px">
+        <label for="notes">Notes</label>
+        <input id="notes" name="notes" type="text" maxlength="300" placeholder="e.g. fresh beans, slight channeling">
+      </div>
+    </details>
+
+    <div class="btn-row" style="margin-top:18px">
+      <button class="btn" type="submit">Get advice</button>
+      <button class="btn secondary" type="button" id="save-shot">Save shot to log</button>
+    </div>
+    <p class="fine" id="save-msg" role="status" style="margin-top:10px"></p>
+  </form>
+
+  <section id="result" class="card result" aria-live="polite" hidden></section>
+
+  <section class="card" aria-labelledby="log-h">
+    <h2 id="log-h">Shot log</h2>
+    <p class="fine">Saved only in this browser on this device. Nothing is uploaded. Clearing your browser data erases it, so export a CSV if you want to keep it.</p>
+    <p id="log-empty">No shots saved yet. Fill in the form above and press "Save shot to log".</p>
+    <div class="table-scroll">
+      <table id="log-table" hidden>
+        <thead>
+          <tr><th>Date</th><th>Coffee</th><th>Grind</th><th>Dose</th><th>Yield</th><th>Time</th><th>Ratio</th><th>Taste</th><th>Notes</th><th></th></tr>
+        </thead>
+        <tbody id="log-body"></tbody>
+      </table>
+    </div>
+    <div class="btn-row">
+      <button class="btn secondary" type="button" id="export-csv">Export CSV</button>
+      <button class="btn secondary" type="button" id="clear-log">Clear log</button>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="how-h">
+    <h2 id="how-h">How the advice works</h2>
+    <ul class="plain">
+      <li>The common starting recipe is a <strong>1:2 ratio</strong> (for example 18 g in, 36 g out) in about <strong>25 to 30 seconds</strong>.</li>
+      <li><strong>Sour</strong> usually means under-extracted: grind finer, or run the shot a little longer.</li>
+      <li><strong>Bitter</strong> usually means over-extracted: grind coarser, or stop the shot earlier.</li>
+      <li><strong>Fast shots</strong> are usually ground too coarse; <strong>slow shots</strong> too fine. If the taste disagrees with the clock, the helper suggests checking puck prep for channeling.</li>
+      <li>Taste is the final judge. These are rules of thumb that give you a sensible next shot, not guarantees. Beans, machines and grinders all differ.</li>
+    </ul>
+    <p class="fine">This tool is about brewing technique only.</p>
+  </section>
+
+  <p><a href="shot-timer.html">Need a timer? Try the shot timer.</a></p>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p><a class="btn small" href="https://buy.stripe.com/fZuaEYclzgD0gyQaTFc7u01" rel="noopener">Chip in</a> &nbsp;Pay what you want, $1 minimum. Not a charity; not tax-deductible; you get thanks, nothing more. <a href="index.html">The story</a></p>
+    <p>Built by an AI agent as an experiment for John.</p>
+  </div>
+</footer>
+
+<script src="dial-in.js"></script>
+</body>
+</html>
