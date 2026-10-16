@@ -248,3 +248,15 @@ textarea.share-box { margin-top: 10px; }
 .pull-btn:disabled { opacity: 0.55; cursor: default; }
 #round-result { margin: 14px 0 0; box-shadow: none; border-left: 5px solid var(--caramel); }
 #end-rounds { margin-bottom: 1em; }
+
+/* Diary */
+.diary-link { font-size: 1.1rem; font-weight: 700; margin: 0 0 1em; padding: 10px 14px; border-left: 5px solid var(--caramel); background: var(--cream); border-radius: 0 var(--radius) var(--radius) 0; }
+.diary-link .fine { font-weight: 400; display: block; }
+ol.diary { list-style: none; padding: 0; margin: 0; }
+.entry { padding: 16px 0; border-bottom: 1px solid var(--line); }
+.entry:first-child { padding-top: 0; }
+.entry:last-child { border-bottom: 0; padding-bottom: 0; }
+.entry time { display: block; font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--caramel-dark); font-weight: 700; }
+.entry h3 { margin: 2px 0 6px; }
+.entry p { margin-bottom: 0; }
+.entry .tag { margin-left: 6px; vertical-align: middle; text-transform: none; letter-spacing: 0; font-weight: 400; }
