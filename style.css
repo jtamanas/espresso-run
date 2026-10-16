@@ -230,3 +230,21 @@ table.ref caption { text-align: left; font-size: 0.88rem; color: var(--mocha); p
 .hint-line { font-weight: 600; min-height: 1.6em; color: var(--mocha); }
 #form-error:empty { display: none; }
 textarea.share-box { margin-top: 10px; }
+
+/* Pull a Shot */
+.round-head { margin-bottom: 4px; font-size: 1.1rem; }
+.round-facts { margin-bottom: 10px; }
+.cup { display: block; width: min(100%, 260px); height: auto; margin: 6px auto 4px; }
+.cup-body, .cup-handle, .cup-saucer { stroke: var(--mocha); }
+.cup-fill { fill: #6b3f26; }
+.cup-target { stroke: var(--caramel-dark); }
+.readouts { display: flex; justify-content: center; gap: 12px 40px; margin: 8px 0 14px; text-align: center; }
+.readouts .stat b { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 2.2rem; font-variant-numeric: tabular-nums; }
+.pull-btn {
+  touch-action: none; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.pull-btn.held { background: var(--btn-hover); transform: translateY(2px); box-shadow: none; }
+.pull-btn:disabled { opacity: 0.55; cursor: default; }
+#round-result { margin: 14px 0 0; box-shadow: none; border-left: 5px solid var(--caramel); }
+#end-rounds { margin-bottom: 1em; }
